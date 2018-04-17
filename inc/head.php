@@ -36,17 +36,52 @@
           <li><a href="#">Chocolates chips</a></li>
           <li><a href="#">Nuts</a></li>
           <li><a href="#">Gluten full</a></li>
+
+        <?php if ( isset( $_SESSION['user'] ) ) : ?>
+           <li>
+            <a href="/login.php?logout=" class="btn btn-warning navbar-btn">
+              <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+              Se déconnecter
+            </a>
+          </li>
+        <?php endif ?>
+
+        <?php if ( isset( $_SESSION['cart'] )
+                   && ( count( $_SESSION['cart']) > 0 )
+              ) : ?>
+           <li>
+            <a href="?emptyCart=" class="btn btn-warning navbar-btn">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              Vider le panier
+            </a>
+          </li>
+        <?php endif ?>
+
+        <?php if ( isset($inCartPage) ) : ?>
+          <li>
+            <a href="/" class="btn btn-warning navbar-btn">
+              <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              Boutique
+            </a>
+          </li>
+
+        <?php else : ?>
           <li>
             <a href="/cart.php" class="btn btn-warning navbar-btn">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-              Cart
+              Panier
             </a>
           </li>
+        <?php endif ?>
+
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+
   <div class="container-fluid text-right">
-    <strong>Hello Wilder !</strong>
+    <strong>
+        Hello <?=  $_SESSION['user'] ?? 'unknown user' ?>&nbsp;!
+    </strong>
   </div>
 </header>

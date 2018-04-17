@@ -1,0 +1,32 @@
+<?php
+
+DEFINE('MAX_SESSION_LIFESPAN', 10 * 60);
+DEFINE('MAX_INACTIVITY_DELAY', 5 * 60);
+
+//start session, deny access to unlogged users,
+// and prevent some kinds of cookies hijacking...
+function validateSession() {
+    session_start();
+
+    if (
+        //REDIRECT TO THE RIGHT PAGE IF NOT LOGGED IN!
+        empty( $_SESSION['user'] )
+        //ask to login anew if inactivity delay is over
+        || ( time() - $_SESSION['lastActivity'] > MAX_INACTIVITY_DELAY )
+      ) {
+        session_unset();
+        session_destroy();
+
+        header('Location: /login.php');
+        exit;
+    }
+    //update timestamp of last "activity" (in fact, page load)
+
+    $_SESSION['lastActivity'] = time();
+
+    //regenerate session ID to mitigate session fixation attacks
+    if (time() - $_SESSION['birthTime'] >  MAX_SESSION_LIFESPAN) {
+        session_regenerate_id(true);
+        $_SESSION['birthTime'] = $_SESSION['lastActivity'];
+    }
+}

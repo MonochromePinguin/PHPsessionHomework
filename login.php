@@ -1,4 +1,33 @@
-<?php require 'inc/head.php'; ?>
+<?php
+    session_start();
+
+    //official logout
+    if ( isset( $_GET['logout'] ) ) {
+        session_unset();
+        session_destroy();
+    }
+
+    #WORK CRITERIA : once connected, we shoul'nt be able to connect
+    # to login page ...
+    if ( isset( $_SESSION['user'] ) ) {
+      header('Location: /');
+      exit;
+    }
+
+
+    if ( isset( $_POST['loginname'] ) ) {
+        $_SESSION['user'] = $_POST['loginname'];
+
+        //session is time-limited to 𝑛 seconds, see inc/sessionfunctions.php
+        $_SESSION['birthTime'] =
+        $_SESSION['lastActivity'] = time();
+
+        header('Location: /index.php');
+        exit;
+    }
+
+    require 'inc/head.php';
+?>
 <div class="container" style="margin-top:40px">
 <div class="row">
   <div class="col-sm-6 col-md-4 col-md-offset-4">
