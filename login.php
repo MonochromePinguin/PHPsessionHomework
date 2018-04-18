@@ -15,8 +15,8 @@
     }
 
 
-    if ( isset( $_POST['loginname'] ) ) {
-        $_SESSION['user'] = $_POST['loginname'];
+    if ( isset( $_POST['loginName'] ) ) {
+        $_SESSION['user'] = $_POST['loginName'];
 
         //session is time-limited to 𝑛 seconds, see inc/sessionfunctions.php
         $_SESSION['birthTime'] =
@@ -51,7 +51,7 @@
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-user"></i>
                     </span>
-                    <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                    <input class="form-control" placeholder="Username" name="loginName" type="text" autofocus>
                   </div>
                 </div>
                 <div class="form-group">

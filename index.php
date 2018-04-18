@@ -4,7 +4,7 @@
 
     //start session, deny access to unlogged users
     // and prevent some kinds of cookies hijacking ... see the function itself.
-    validateSession();
+    validateSession(true);
 
     $errorMsg = null;
 
@@ -66,9 +66,15 @@
 
                   <p><?= $item['infos'] ?></p>
 
-                  <a  href="?add_to_cart=<?= $ref ?>" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
-                  </a>
+                  <?php if ( empty( $_SESSION['user'] ) ) : ?>
+                    <p class="alert alert-warning">
+                        Connection nécessaire pour accéder au panier
+                    </p>
+                  <?php else : ?>
+                    <a  href="?add_to_cart=<?= $ref ?>" class="btn btn-primary">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
+                    </a>
+                  <?php endif ?>
 
                 </figcaption>
 

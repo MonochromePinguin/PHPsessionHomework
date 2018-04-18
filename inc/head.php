@@ -44,6 +44,15 @@
               Se déconnecter
             </a>
           </li>
+
+        <?php else : ?>
+          <li>
+            <a href="/login.php" class="btn btn-warning navbar-btn">
+              <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+              Connection
+            </a>
+          </li>
+
         <?php endif ?>
 
         <?php if ( isset( $_SESSION['cart'] )
@@ -65,13 +74,14 @@
             </a>
           </li>
 
-        <?php else : ?>
+        <?php elseif ( isset($_SESSION['user']) ) : ?>
           <li>
             <a href="/cart.php" class="btn btn-warning navbar-btn">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
               Panier
             </a>
           </li>
+
         <?php endif ?>
 
         </ul>
